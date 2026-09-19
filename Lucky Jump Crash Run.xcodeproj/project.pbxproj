@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -72,13 +72,13 @@
 		356EBFE0E09F71D51CCE58A5 /* GameRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRulesTests.swift; sourceTree = "<group>"; };
 		3A85F352503B0DC26E933F19 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		3C719C7A9E4AA196B42CAC82 /* SoundEffectPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectPlayer.swift; sourceTree = "<group>"; };
-		3E422405E966518DAE96C2A6 /* JumpCollectExplorer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JumpCollectExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E422405E966518DAE96C2A6 /* Lucky Jump Crash Run.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lucky Jump Crash Run.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EDFC41F2CF2C63EDB3CA14 /* sfx_spring.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_spring.wav; sourceTree = "<group>"; };
 		4940FD145BFEC7E6485C6E9A /* sfx_chest.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_chest.wav; sourceTree = "<group>"; };
 		4D230E37E16394C6B8FD8BAA /* sfx_powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_powerup.wav; sourceTree = "<group>"; };
 		56AFC1649D14E2711F465C08 /* sfx_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_hit.wav; sourceTree = "<group>"; };
 		5764502E6044826DD898C107 /* sfx_hazard.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_hazard.wav; sourceTree = "<group>"; };
-		6FD97E461AA1EF289FFD5391 /* JumpCollectExplorerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JumpCollectExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FD97E461AA1EF289FFD5391 /* Lucky Jump Crash RunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Lucky Jump Crash RunTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70AF097AF5F27E6327089239 /* sfx_rotten.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_rotten.wav; sourceTree = "<group>"; };
 		70E3FC7891ADDE40C9A116C6 /* sfx_coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_coin.wav; sourceTree = "<group>"; };
 		71BC1E6432DFDA5A1461D4A7 /* GameContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameContainerView.swift; sourceTree = "<group>"; };
@@ -133,8 +133,8 @@
 		3BCB50BD5BC68DD902E7228A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E422405E966518DAE96C2A6 /* JumpCollectExplorer.app */,
-				6FD97E461AA1EF289FFD5391 /* JumpCollectExplorerTests.xctest */,
+				3E422405E966518DAE96C2A6 /* Lucky Jump Crash Run.app */,
+				6FD97E461AA1EF289FFD5391 /* Lucky Jump Crash RunTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,9 +235,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9855DAA49C41CDE6266A5C6F /* JumpCollectExplorerTests */ = {
+		9855DAA49C41CDE6266A5C6F /* Lucky Jump Crash RunTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A761C371F7621C2664DE5FF8 /* Build configuration list for PBXNativeTarget "JumpCollectExplorerTests" */;
+			buildConfigurationList = A761C371F7621C2664DE5FF8 /* Build configuration list for PBXNativeTarget "Lucky Jump Crash RunTests" */;
 			buildPhases = (
 				32AAFF534A15068A50A807F6 /* Sources */,
 			);
@@ -246,16 +246,16 @@
 			dependencies = (
 				9ECB650D9585AF981EF761AC /* PBXTargetDependency */,
 			);
-			name = JumpCollectExplorerTests;
+			name = "Lucky Jump Crash RunTests";
 			packageProductDependencies = (
 			);
 			productName = JumpCollectExplorerTests;
-			productReference = 6FD97E461AA1EF289FFD5391 /* JumpCollectExplorerTests.xctest */;
+			productReference = 6FD97E461AA1EF289FFD5391 /* Lucky Jump Crash RunTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DB4B0BFD2C4D9F65CAB170BA /* JumpCollectExplorer */ = {
+		DB4B0BFD2C4D9F65CAB170BA /* Lucky Jump Crash Run */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 06FEE966D1DECF8BC71F1658 /* Build configuration list for PBXNativeTarget "JumpCollectExplorer" */;
+			buildConfigurationList = 06FEE966D1DECF8BC71F1658 /* Build configuration list for PBXNativeTarget "Lucky Jump Crash Run" */;
 			buildPhases = (
 				62E5F57B24917880741A242B /* Sources */,
 				ACFAA33DFCB9E8865ECF2725 /* Resources */,
@@ -264,11 +264,11 @@
 			);
 			dependencies = (
 			);
-			name = JumpCollectExplorer;
+			name = "Lucky Jump Crash Run";
 			packageProductDependencies = (
 			);
 			productName = JumpCollectExplorer;
-			productReference = 3E422405E966518DAE96C2A6 /* JumpCollectExplorer.app */;
+			productReference = 3E422405E966518DAE96C2A6 /* Lucky Jump Crash Run.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -288,7 +288,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A97270880640ACA08E9BD383 /* Build configuration list for PBXProject "JumpCollectExplorer" */;
+			buildConfigurationList = A97270880640ACA08E9BD383 /* Build configuration list for PBXProject "Lucky Jump Crash Run" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -298,12 +298,11 @@
 			);
 			mainGroup = 4B1A6FDD08A449338635F051;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DB4B0BFD2C4D9F65CAB170BA /* JumpCollectExplorer */,
-				9855DAA49C41CDE6266A5C6F /* JumpCollectExplorerTests */,
+				DB4B0BFD2C4D9F65CAB170BA /* Lucky Jump Crash Run */,
+				9855DAA49C41CDE6266A5C6F /* Lucky Jump Crash RunTests */,
 			);
 		};
 /* End PBXProject section */
@@ -375,7 +374,7 @@
 /* Begin PBXTargetDependency section */
 		9ECB650D9585AF981EF761AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DB4B0BFD2C4D9F65CAB170BA /* JumpCollectExplorer */;
+			target = DB4B0BFD2C4D9F65CAB170BA /* Lucky Jump Crash Run */;
 			targetProxy = 46BB869517621CAA4230749C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -393,9 +392,10 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer.tests;
+				PRODUCT_NAME = "Lucky Jump Crash RunTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JumpCollectExplorer.app/JumpCollectExplorer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lucky Jump Crash Run.app/Lucky Jump Crash Run";
 			};
 			name = Release;
 		};
@@ -469,12 +469,18 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer;
+				PRODUCT_NAME = "Lucky Jump Crash Run";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -556,12 +562,18 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer;
+				PRODUCT_NAME = "Lucky Jump Crash Run";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -578,16 +590,17 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer.tests;
+				PRODUCT_NAME = "Lucky Jump Crash RunTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JumpCollectExplorer.app/JumpCollectExplorer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lucky Jump Crash Run.app/Lucky Jump Crash Run";
 			};
 			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		06FEE966D1DECF8BC71F1658 /* Build configuration list for PBXNativeTarget "JumpCollectExplorer" */ = {
+		06FEE966D1DECF8BC71F1658 /* Build configuration list for PBXNativeTarget "Lucky Jump Crash Run" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				49C93DF9B7854688D4B90AA9 /* Debug */,
@@ -596,7 +609,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		A761C371F7621C2664DE5FF8 /* Build configuration list for PBXNativeTarget "JumpCollectExplorerTests" */ = {
+		A761C371F7621C2664DE5FF8 /* Build configuration list for PBXNativeTarget "Lucky Jump Crash RunTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				904E430A55C4693F6BB087D8 /* Debug */,
@@ -605,7 +618,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		A97270880640ACA08E9BD383 /* Build configuration list for PBXProject "JumpCollectExplorer" */ = {
+		A97270880640ACA08E9BD383 /* Build configuration list for PBXProject "Lucky Jump Crash Run" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4CB2BB33175BF1F0E67A3779 /* Debug */,
