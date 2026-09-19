@@ -391,7 +391,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.luckyjump.tests;
 				PRODUCT_NAME = "Lucky Jump Crash RunTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -474,7 +474,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.luckyjump;
 				PRODUCT_NAME = "Lucky Jump Crash Run";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -567,7 +567,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.luckyjump;
 				PRODUCT_NAME = "Lucky Jump Crash Run";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -589,7 +589,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.korotkov.jumpcollectexplorer.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.luckyjump.tests;
 				PRODUCT_NAME = "Lucky Jump Crash RunTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

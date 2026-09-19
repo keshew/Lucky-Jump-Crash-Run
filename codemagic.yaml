@@ -8,7 +8,7 @@
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.nastyflownest.NestFlow
+        bundle_identifier: com.app.luckyjump
       vars:
         APP_STORE_CONNECT_KEY: luckyjump_key
         APP_STORE_APPLE_ID: 6813902539
