@@ -22,11 +22,30 @@ final class ProceduralMusicPlayer {
         }
 
         do {
-            if !engine.isRunning { try engine.start() }
+            #if os(iOS)
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+            try session.setActive(true)
+            #endif
+
+            engine.prepare()
+            if !engine.isRunning {
+                try engine.start()
+            }
+
+            // AVAudioEngine can fail to create an IO cycle in the Simulator
+            // without surfacing the failure as a Swift error. Calling play()
+            // in that state raises an Objective-C exception and terminates the app.
+            guard engine.isRunning else {
+                player.stop()
+                return
+            }
+
             player.scheduleBuffer(buffer, at: nil, options: .loops)
             player.play()
         } catch {
             player.stop()
+            engine.stop()
         }
     }
 
@@ -64,4 +83,3 @@ final class ProceduralMusicPlayer {
         return buffer
     }
 }
-
