@@ -22,13 +22,6 @@ enum LaunchDataStore {
     static let pendingPushKey = "isFromPushPending"
     static let adjustAttributionKey = "lastAdjustAttribution"
 
-    private static let adjustKeys = [
-        "adjust_adid", "adjust_tracker_token", "adjust_tracker_name", "adjust_network",
-        "adjust_campaign", "adjust_adgroup", "adjust_creative", "adjust_click_label",
-        "adjust_cost_type", "adjust_cost_amount", "adjust_cost_currency"
-    ]
-    private(set) static var adjustReadyThisLaunch = false
-
     static var clientUUID: String {
         if let saved = UserDefaults.standard.string(forKey: clientUUIDKey), !saved.isEmpty {
             return saved
@@ -42,58 +35,8 @@ enum LaunchDataStore {
         nonEmpty(UserDefaults.standard.string(forKey: firebaseTokenKey))
     }
 
-    static var adjustPayload: [String: String]? {
-        var result: [String: String] = [:]
-        for key in adjustKeys {
-            guard let value = nonEmpty(UserDefaults.standard.string(forKey: key)) else { return nil }
-            result[key] = value
-        }
-        if let json = nonEmpty(UserDefaults.standard.string(forKey: "adjust_json")) {
-            result["adjust_json"] = json
-        }
-        return result
-    }
-
-    static var normalizedAdjustPayload: [String: String] {
-        adjustPayload ?? Dictionary(uniqueKeysWithValues: adjustKeys.map { ($0, "null") })
-    }
-
-    static var allLaunchDataReady: Bool {
-        firebaseToken != nil && adjustReadyThisLaunch && adjustPayload != nil
-    }
-
-    static func save(attribution: ADJAttribution, adid: String) {
-        let fallback = "null"
-        let values: [String: String] = [
-            "adjust_adid": adid,
-            "adjust_tracker_token": normalized(attribution.trackerToken, fallback: fallback),
-            "adjust_tracker_name": normalized(attribution.trackerName, fallback: fallback),
-            "adjust_network": normalized(attribution.network, fallback: fallback),
-            "adjust_campaign": normalized(attribution.campaign, fallback: fallback),
-            "adjust_adgroup": normalized(attribution.adgroup, fallback: fallback),
-            "adjust_creative": normalized(attribution.creative, fallback: fallback),
-            "adjust_click_label": normalized(attribution.clickLabel, fallback: fallback),
-            "adjust_cost_type": normalized(attribution.costType, fallback: fallback),
-            "adjust_cost_amount": attribution.costAmount?.stringValue ?? fallback,
-            "adjust_cost_currency": normalized(attribution.costCurrency, fallback: fallback)
-        ]
-        values.forEach { UserDefaults.standard.set($0.value, forKey: $0.key) }
-        adjustReadyThisLaunch = true
-
-        if let jsonResponse = attribution.jsonResponse,
-           JSONSerialization.isValidJSONObject(jsonResponse),
-           let data = try? JSONSerialization.data(withJSONObject: jsonResponse, options: [.sortedKeys]),
-           let json = String(data: data, encoding: .utf8), !json.isEmpty {
-            UserDefaults.standard.set(json, forKey: "adjust_json")
-            UserDefaults.standard.set(json, forKey: adjustAttributionKey)
-        } else {
-            UserDefaults.standard.set("{}", forKey: "adjust_json")
-            UserDefaults.standard.set("{}", forKey: adjustAttributionKey)
-        }
-    }
-
-    private static func normalized(_ value: String?, fallback: String) -> String {
-        nonEmpty(value) ?? fallback
+    static var adjustAttributionJSON: String? {
+        nonEmpty(UserDefaults.standard.string(forKey: adjustAttributionKey))
     }
 
     private static func nonEmpty(_ value: String?) -> String? {
@@ -103,8 +46,26 @@ enum LaunchDataStore {
     }
 }
 
-final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, AdjustDelegate {
+final class AdjustAttributionCollector: NSObject, AdjustDelegate {
+    func adjustAttributionChanged(_ attribution: ADJAttribution?) {
+        guard let attribution else { return }
+        if #available(iOS 14, *),
+           ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+            return
+        }
+        guard let jsonResponse = attribution.jsonResponse,
+              let data = try? JSONSerialization.data(withJSONObject: jsonResponse, options: []),
+              let jsonString = String(data: data, encoding: .utf8) else {
+            UserDefaults.standard.removeObject(forKey: LaunchDataStore.adjustAttributionKey)
+            return
+        }
+        UserDefaults.standard.set(jsonString, forKey: LaunchDataStore.adjustAttributionKey)
+    }
+}
+
+final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     private let adjustAppToken = "apjvi2blcq9s"
+    private let attributionCollector = AdjustAttributionCollector()
 
     func application(
         _ application: UIApplication,
@@ -124,14 +85,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
     private func configureAdjust() {
         let environment = ADJEnvironmentProduction
         guard let config = ADJConfig(appToken: adjustAppToken, environment: environment) else { return }
-        config.delegate = self
-        config.enableCostDataInAttribution()
+        config.delegate = attributionCollector
         config.logLevel = .info
         Adjust.initSdk(config)
-
-        Adjust.attribution { [weak self] attribution in
-            self?.adjustAttributionChanged(attribution)
-        }
     }
 
     private func configureFirebase() {
@@ -144,32 +100,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
         Messaging.messaging().isAutoInitEnabled = true
-    }
-
-    func adjustAttributionChanged(_ attribution: ADJAttribution?) {
-        guard let attribution else { return }
-        if #available(iOS 14, *),
-           ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-            return
-        }
-        persistCompleteAttribution(attribution)
-    }
-
-    private func persistCompleteAttribution(_ attribution: ADJAttribution, attempt: Int = 0) {
-        Adjust.adid { [weak self] adid in
-            guard let self else { return }
-            guard let adid = adid?.trimmingCharacters(in: .whitespacesAndNewlines), !adid.isEmpty else {
-                guard attempt < 15 else { return }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.persistCompleteAttribution(attribution, attempt: attempt + 1)
-                }
-                return
-            }
-            LaunchDataStore.save(attribution: attribution, adid: adid)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .adjustAttributionReady, object: nil)
-            }
-        }
     }
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {

@@ -54,7 +54,7 @@ struct LaunchThresholdView: View {
         await requestATTAndStoreIDFA()
 
         for second in 0...15 {
-            if LaunchDataStore.adjustPayload != nil, LaunchDataStore.firebaseToken != nil {
+            if LaunchDataStore.adjustAttributionJSON != nil, LaunchDataStore.firebaseToken != nil {
                 return
             }
             guard second < 15, !Task.isCancelled else { return }
@@ -86,7 +86,7 @@ struct LaunchThresholdView: View {
         if currentStatus != .notDetermined {
             let idfa = currentStatus == .authorized
                 ? ASIdentifierManager.shared().advertisingIdentifier.uuidString
-                : "null"
+                : ""
             UserDefaults.standard.set(idfa, forKey: "idfa")
             return
         }
@@ -99,7 +99,7 @@ struct LaunchThresholdView: View {
         let status = await Adjust.requestAppTrackingAuthorization()
         let idfa = status == 3
             ? ASIdentifierManager.shared().advertisingIdentifier.uuidString
-            : "null"
+            : ""
         UserDefaults.standard.set(idfa, forKey: "idfa")
     }
 }
@@ -118,7 +118,7 @@ private enum LaunchWire {
 }
 
 private struct SessionSignal {
-    let attribution: [String: String]
+    let attribution: [String: Any]
     let firebaseToken: String
     let adjustID: String
     let idfa: String
@@ -145,24 +145,8 @@ private struct SessionSignal {
     }
 
     func encodedBody() -> Data {
-        let rawJSON = attribution["adjust_json"]
-            ?? UserDefaults.standard.string(forKey: LaunchDataStore.adjustAttributionKey)
-            ?? "{}"
-        let adjust: [String: Any] = [
-            "trackerToken": attribution["adjust_tracker_token"] ?? "null",
-            "trackerName": attribution["adjust_tracker_name"] ?? "null",
-            "network": attribution["adjust_network"] ?? "null",
-            "campaign": attribution["adjust_campaign"] ?? "null",
-            "adgroup": attribution["adjust_adgroup"] ?? "null",
-            "creative": attribution["adjust_creative"] ?? "null",
-            "clickLabel": attribution["adjust_click_label"] ?? "null",
-            "costType": attribution["adjust_cost_type"] ?? "null",
-            "costAmount": Double(attribution["adjust_cost_amount"] ?? "") ?? 0,
-            "costCurrency": attribution["adjust_cost_currency"] ?? "null",
-            "jsonResponse": rawJSON
-        ]
         let body: [String: Any] = [
-            "adjust": adjust,
+            "adjust": attribution,
             "referrer": "utm_source=appstore&utm_medium=organic"
         ]
         return (try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data("{}".utf8)
@@ -283,19 +267,40 @@ extension LaunchThresholdView {
     }
 
     private func makeSessionSignal(openedFromPush: Bool) async -> SessionSignal {
-        let attribution = LaunchDataStore.normalizedAdjustPayload
-        let rawAdjustID = await Adjust.adid() ?? attribution["adjust_adid"] ?? "null"
+        let attribution = standardAdjustPayload()
+        let adjustID = await Adjust.adid() ?? ""
         let device = await MainActor.run { UIDevice.current.model }
         return SessionSignal(
             attribution: attribution,
             firebaseToken: LaunchDataStore.firebaseToken ?? "null",
-            adjustID: rawAdjustID.isEmpty ? "null" : rawAdjustID,
-            idfa: UserDefaults.standard.string(forKey: "idfa") ?? "null",
+            adjustID: adjustID,
+            idfa: UserDefaults.standard.string(forKey: "idfa") ?? "",
             deviceModel: device,
             storedClientID: UserDefaults.standard.string(forKey: "client_id"),
             pushID: UserDefaults.standard.string(forKey: LaunchDataStore.pushIDKey),
             openedFromPush: openedFromPush
         )
+    }
+
+    private func standardAdjustPayload() -> [String: Any] {
+        guard let jsonString = LaunchDataStore.adjustAttributionJSON,
+              let jsonData = jsonString.data(using: .utf8),
+              let json = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else {
+            return [:]
+        }
+        return [
+            "trackerToken": json["trackerToken"] as? String ?? "",
+            "trackerName": json["trackerName"] as? String ?? "",
+            "network": json["network"] as? String ?? "",
+            "campaign": json["campaign"] as? String ?? "",
+            "adgroup": json["adgroup"] as? String ?? "",
+            "creative": json["creative"] as? String ?? "",
+            "clickLabel": json["clickLabel"] as? String ?? "",
+            "costType": json["costType"] as? String ?? "",
+            "costAmount": json["costAmount"] as? Double ?? 0,
+            "costCurrency": json["costCurrency"] as? String ?? "",
+            "jsonResponse": jsonString
+        ]
     }
 
     private func resolvedRoute(using relay: LaunchRelay) async throws -> URL {
