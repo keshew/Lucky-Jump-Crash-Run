@@ -29,6 +29,12 @@
 		7F477A3DC435BD14B42807C9 /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A85D22B6073537B6A67E9A4 /* MissionsView.swift */; };
 		8C5C6B0A0C5ACB5279C755E5 /* sfx_rotten.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70AF097AF5F27E6327089239 /* sfx_rotten.wav */; };
 		8E534E4CC4FF166BD5EDC5D7 /* sfx_revive.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8B5F047537382382F192032E /* sfx_revive.wav */; };
+		A10000000000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* AppDelegate.swift */; };
+		A10000000000000000000002 /* SessionThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* SessionThreshold.swift */; };
+		A10000000000000000000003 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* GoogleService-Info.plist */; };
+		A10000000000000000000004 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E10000000000000000000001 /* FirebaseCore */; };
+		A10000000000000000000005 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E10000000000000000000002 /* FirebaseMessaging */; };
+		A10000000000000000000006 /* AdjustSdk in Frameworks */ = {isa = PBXBuildFile; productRef = E10000000000000000000003 /* AdjustSdk */; };
 		AF7343B99480912E1EEB8FFB /* sfx_chest.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4940FD145BFEC7E6485C6E9A /* sfx_chest.wav */; };
 		B2949240E05D03252A579B3B /* SoundEffectPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C719C7A9E4AA196B42CAC82 /* SoundEffectPlayer.swift */; };
 		B603E4480BEDF472E7C46628 /* LevelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B2F9B38DDF5C9A381734F4 /* LevelCatalog.swift */; };
@@ -85,6 +91,11 @@
 		8B5F047537382382F192032E /* sfx_revive.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_revive.wav; sourceTree = "<group>"; };
 		A31E1C2429B00DDC795F1173 /* WorldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldsView.swift; sourceTree = "<group>"; };
 		A696C2DAC002CC7FFA26A47C /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		B10000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B10000000000000000000002 /* SessionThreshold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionThreshold.swift; sourceTree = "<group>"; };
+		B10000000000000000000003 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B10000000000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10000000000000000000005 /* JumpCollectExplorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JumpCollectExplorer.entitlements; sourceTree = "<group>"; };
 		B2192EE9FE81A64F6687F36D /* sfx_level_complete.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_level_complete.wav; sourceTree = "<group>"; };
 		B7AA3645D628188FF8F8F649 /* ProceduralMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProceduralMusicPlayer.swift; sourceTree = "<group>"; };
 		B7D89CE61CF254D80F1A7238 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -97,6 +108,19 @@
 		EB63457B7F4A430ACE386BED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4F5A67E5D37EF8168107C04 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C10000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000004 /* FirebaseCore in Frameworks */,
+				A10000000000000000000005 /* FirebaseMessaging in Frameworks */,
+				A10000000000000000000006 /* AdjustSdk in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		006651F2585770F10126DFCF /* JumpCollectExplorerTests */ = {
@@ -185,6 +209,9 @@
 			isa = PBXGroup;
 			children = (
 				EB63457B7F4A430ACE386BED /* Assets.xcassets */,
+				B10000000000000000000003 /* GoogleService-Info.plist */,
+				B10000000000000000000004 /* Info.plist */,
+				B10000000000000000000005 /* JumpCollectExplorer.entitlements */,
 				D15CA489174182544EEF063E /* App */,
 				665CD150BC424D27CA6CDDB1 /* Design */,
 				D1A49425810F90C5D984C82B /* Game */,
@@ -208,7 +235,9 @@
 		D15CA489174182544EEF063E /* App */ = {
 			isa = PBXGroup;
 			children = (
+				B10000000000000000000001 /* AppDelegate.swift */,
 				1F7803818C28F8D507D4411A /* JumpCollectExplorerApp.swift */,
+				B10000000000000000000002 /* SessionThreshold.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -258,6 +287,7 @@
 			buildConfigurationList = 06FEE966D1DECF8BC71F1658 /* Build configuration list for PBXNativeTarget "Lucky Jump Crash Run" */;
 			buildPhases = (
 				62E5F57B24917880741A242B /* Sources */,
+				C10000000000000000000001 /* Frameworks */,
 				ACFAA33DFCB9E8865ECF2725 /* Resources */,
 			);
 			buildRules = (
@@ -266,6 +296,9 @@
 			);
 			name = "Lucky Jump Crash Run";
 			packageProductDependencies = (
+				E10000000000000000000001 /* FirebaseCore */,
+				E10000000000000000000002 /* FirebaseMessaging */,
+				E10000000000000000000003 /* AdjustSdk */,
 			);
 			productName = JumpCollectExplorer;
 			productReference = 3E422405E966518DAE96C2A6 /* Lucky Jump Crash Run.app */;
@@ -298,6 +331,10 @@
 			);
 			mainGroup = 4B1A6FDD08A449338635F051;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D10000000000000000000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D10000000000000000000002 /* XCRemoteSwiftPackageReference "ios_sdk" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -312,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000003 /* GoogleService-Info.plist in Resources */,
 				BBBA1C72E6A2768FF0AD0651 /* Assets.xcassets in Resources */,
 				F3AEE244ADEDC64EEB3BB053 /* Kenney-CC0-License.txt in Resources */,
 				0B38D61DCA8BC515F6BA4963 /* sfx_checkpoint.wav in Resources */,
@@ -347,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000001 /* AppDelegate.swift in Sources */,
 				4DA10684A818DE86DBF594C2 /* CollectionShopViews.swift in Sources */,
 				F6619D45845C2F6843AFECA6 /* DailyRewardView.swift in Sources */,
 				7A312D2E89728E2C98F560EA /* DesignSystem.swift in Sources */,
@@ -356,6 +395,7 @@
 				4D906C943279DD73BA11A49D /* GameStore.swift in Sources */,
 				BDD56B0603A6BEA2F060CE2D /* HomeView.swift in Sources */,
 				F78F9BE720B359B5019997C0 /* JumpCollectExplorerApp.swift in Sources */,
+				A10000000000000000000002 /* SessionThreshold.swift in Sources */,
 				B603E4480BEDF472E7C46628 /* LevelCatalog.swift in Sources */,
 				68D06DB5EF35B87184CA8B22 /* LevelPreparationView.swift in Sources */,
 				FF8B190C0EC8D5D8D20082EB /* LoadingView.swift in Sources */,
@@ -462,9 +502,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_ENTITLEMENTS = JumpCollectExplorer/JumpCollectExplorer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JumpCollectExplorer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lucky Jump: Crash Run";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -474,6 +516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.luckyjump;
 				PRODUCT_NAME = "Lucky Jump Crash Run";
 				SDKROOT = iphoneos;
@@ -555,9 +598,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_ENTITLEMENTS = JumpCollectExplorer/JumpCollectExplorer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JumpCollectExplorer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lucky Jump: Crash Run";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -567,6 +612,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.luckyjump;
 				PRODUCT_NAME = "Lucky Jump Crash Run";
 				SDKROOT = iphoneos;
@@ -628,6 +674,43 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D10000000000000000000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.9.0;
+			};
+		};
+		D10000000000000000000002 /* XCRemoteSwiftPackageReference "ios_sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adjust/ios_sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E10000000000000000000001 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		E10000000000000000000002 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		E10000000000000000000003 /* AdjustSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000002 /* XCRemoteSwiftPackageReference "ios_sdk" */;
+			productName = AdjustSdk;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F39836EC9DBFF7A72EFA2A76 /* Project object */;
 }
