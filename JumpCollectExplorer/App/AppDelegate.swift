@@ -5,6 +5,10 @@ import FirebaseMessaging
 import UIKit
 import UserNotifications
 
+enum InterfaceOrientationPolicy {
+    static var webContentIsVisible = false
+}
+
 extension Notification.Name {
     static let firebaseTokenReady = Notification.Name("firebaseTokenReady")
     static let adjustAttributionReady = Notification.Name("adjustAttributionReady")
@@ -66,6 +70,13 @@ final class AdjustAttributionCollector: NSObject, AdjustDelegate {
 final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     private let adjustAppToken = "apjvi2blcq9s"
     private let attributionCollector = AdjustAttributionCollector()
+
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
+        InterfaceOrientationPolicy.webContentIsVisible ? .all : .portrait
+    }
 
     func application(
         _ application: UIApplication,
@@ -165,10 +176,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
     ) {
         Messaging.messaging().appDidReceiveMessage(userInfo)
         savePushID(from: userInfo)
-        UserDefaults.standard.set(true, forKey: LaunchDataStore.pendingPushKey)
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .remotePushClicked, object: nil)
-        }
         completionHandler(.newData)
     }
 

@@ -16,10 +16,7 @@ struct LaunchThresholdView: View {
     var body: some View {
         LoadingView()
         .onReceive(pushOpenEvents) { _ in
-            Task {
-                await preparePermissionsAndWaitForData()
-                await establishRemoteSession(openedFromPush: true)
-            }
+            startRemoteFlow()
         }
 
         .onAppear {
@@ -37,13 +34,26 @@ struct LaunchThresholdView: View {
     private func startBootstrap() {
         guard !hasStarted else { return }
         hasStarted = true
-        let isFromPush = UserDefaults.standard.bool(forKey: LaunchDataStore.pendingPushKey)
-        launchTask = Task {
+        startRemoteFlow()
+    }
+
+    private func startRemoteFlow() {
+        guard launchTask == nil else { return }
+        launchTask = Task { @MainActor in
             await preparePermissionsAndWaitForData()
-            let openedRemote = await establishRemoteSession(openedFromPush: isFromPush)
+            guard !Task.isCancelled else {
+                launchTask = nil
+                return
+            }
+            let openedFromPush = UserDefaults.standard.bool(forKey: LaunchDataStore.pendingPushKey)
+            if openedFromPush {
+                UserDefaults.standard.set(false, forKey: LaunchDataStore.pendingPushKey)
+            }
+            let openedRemote = await establishRemoteSession(openedFromPush: openedFromPush)
+            launchTask = nil
             if !Task.isCancelled && !openedRemote {
                 print("REMOTE FLOW: opening native because bootstrap did not return a web URL")
-                await MainActor.run { showsNativeFallback = true }
+                showsNativeFallback = true
             }
         }
     }
@@ -138,7 +148,7 @@ private struct SessionSignal {
         if let storedClientID, UUID(uuidString: storedClientID) != nil {
             items.append(URLQueryItem(name: "client_id", value: storedClientID))
         }
-        if let pushID, !pushID.isEmpty {
+        if openedFromPush, let pushID, !pushID.isEmpty {
             items.append(URLQueryItem(name: "push_id", value: pushID))
         }
         return items
@@ -370,10 +380,25 @@ final class BrowserSessionController: UIViewController, WKNavigationDelegate, WK
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        InterfaceOrientationPolicy.webContentIsVisible = true
+        refreshSupportedOrientations(.all)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        InterfaceOrientationPolicy.webContentIsVisible = false
+        refreshSupportedOrientations(.portrait)
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .all }
+    override var shouldAutorotate: Bool { true }
+
+    private func refreshSupportedOrientations(_ orientations: UIInterfaceOrientationMask) {
+        setNeedsUpdateOfSupportedInterfaceOrientations()
+        navigationController?.setNeedsUpdateOfSupportedInterfaceOrientations()
+        if let scene = view.window?.windowScene {
+            scene.requestGeometryUpdate(.iOS(interfaceOrientations: orientations))
+        }
     }
     
     func assembleView() async {
